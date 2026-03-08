@@ -4,6 +4,11 @@ export const theme = {
     primaryLight: '#9F7AEA',    // Roxo claro
     primaryDark: '#553C9A',     // Roxo escuro
     
+    sucess: '#48BB78',
+    warning: '#F59E0B',
+    danger: '#EF4444',
+    info: '#3B82F6',
+    
     background: {
       main: '#F7FAFC',          // Fundo principal
       card: '#FFFFFF',          // Fundo dos cards
@@ -37,6 +42,7 @@ export const theme = {
     lg: '2rem',      // 32px
     xl: '3rem',      // 48px
     xxl: '4rem',     // 64px
+    '3xl': '5rem',
   },
   
   borderRadius: {

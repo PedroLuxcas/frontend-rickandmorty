@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useCharacters } from '@hooks/useCharacters';
+import { useCharacters } from '../hooks/useCharacters';
 import CharacterCard from '../components/Character/CharacterCard';
 import SearchBar from '../components/Search/SearchBar';
 import LoadingScreen from '../components/UI/LoadingScreen';
@@ -18,7 +18,7 @@ import {
 } from './CharactersPage.styles';
 
 const CharactersPage: React.FC = () => {
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState<string>('');
   const { 
     characters, 
     loading, 
@@ -29,6 +29,12 @@ const CharactersPage: React.FC = () => {
     total 
   } = useCharacters(searchQuery);
 
+  // Função para limpar a busca
+  const handleClearSearch = () => {
+    setSearchQuery('');
+  };
+
+  // Loading state
   if (loading) {
     return (
       <PageContainer>
@@ -36,12 +42,13 @@ const CharactersPage: React.FC = () => {
           <Title>Characters</Title>
           <Subtitle>Meet all characters from the Rick and Morty universe</Subtitle>
         </Header>
-        <SearchBar onSearch={setSearchQuery} />
+        <SearchBar onSearch={setSearchQuery} placeholder="Search by name..." />
         <LoadingScreen message="Loading characters..." />
       </PageContainer>
     );
   }
 
+  // Error or empty state
   if (error || characters.length === 0) {
     return (
       <PageContainer>
@@ -49,17 +56,21 @@ const CharactersPage: React.FC = () => {
           <Title>Characters</Title>
           <Subtitle>Meet all characters from the Rick and Morty universe</Subtitle>
         </Header>
-        <SearchBar onSearch={setSearchQuery} />
+        <SearchBar onSearch={setSearchQuery} placeholder="Search by name..." />
         <EmptyState 
           title="No characters found"
           message={searchQuery 
             ? `No results for "${searchQuery}". Try another search!`
             : "No characters available at the moment."}
+          showButton={true}
+          buttonText="Clear search"
+          onButtonClick={handleClearSearch}
         />
       </PageContainer>
     );
   }
 
+  // Success state with results
   return (
     <PageContainer>
       <Header>
@@ -67,7 +78,11 @@ const CharactersPage: React.FC = () => {
         <Subtitle>Meet all characters from the Rick and Morty universe</Subtitle>
       </Header>
 
-      <SearchBar onSearch={setSearchQuery} placeholder="Search by name..." />
+      <SearchBar
+        onSearch={setSearchQuery}
+        placeholder="Search by name..."
+        initialValue={searchQuery}
+      />
 
       <ResultsInfo>
         <ResultsCount>
@@ -81,21 +96,21 @@ const CharactersPage: React.FC = () => {
       </ResultsInfo>
 
       <Grid>
-        {characters.map(character => (
+        {characters.map((character) => (
           <CharacterCard key={character.id} character={character} />
         ))}
       </Grid>
 
       <PaginationContainer>
-        <PageButton 
-          onClick={() => setPage(p => Math.max(1, p - 1))}
+        <PageButton
+          onClick={() => setPage(prevPage => Math.max(1, prevPage - 1))}
           disabled={page === 1}
           $disabled={page === 1}
         >
           Previous
         </PageButton>
-        
-        {[...Array(Math.min(5, totalPages))].map((_, i) => {
+
+        {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
           let pageNum = page;
           if (page <= 3) {
             pageNum = i + 1;
@@ -104,7 +119,7 @@ const CharactersPage: React.FC = () => {
           } else {
             pageNum = page - 2 + i;
           }
-          
+
           if (pageNum > 0 && pageNum <= totalPages) {
             return (
               <PageButton
@@ -118,11 +133,11 @@ const CharactersPage: React.FC = () => {
           }
           return null;
         })}
-        
+
         <PageInfo>of {totalPages}</PageInfo>
-        
-        <PageButton 
-          onClick={() => setPage(p => Math.min(totalPages, p + 1))}
+
+        <PageButton
+          onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
           disabled={page === totalPages}
           $disabled={page === totalPages}
         >

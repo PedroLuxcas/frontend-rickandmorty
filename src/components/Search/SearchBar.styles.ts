@@ -8,14 +8,15 @@ export const SearchContainer = styled.div`
 export const SearchWrapper = styled.div`
   position: relative;
   width: 100%;
+  display: flex;
+  gap: ${({ theme }) => theme.spacing.sm};
 `;
 
 export const SearchInput = styled.input`
-  width: 100%;
+  flex: 1;
   padding: ${({ theme }) => `${theme.spacing.md} ${theme.spacing.lg}`};
-  padding-right: 50px;
   border: 2px solid ${({ theme }) => theme.colors.border};
-  border-radius: ${({ theme }) => theme.borderRadius.full};
+  border-radius: ${({ theme }) => theme.borderRadius.md};
   font-size: 1rem;
   transition: all 0.2s;
 
@@ -31,22 +32,33 @@ export const SearchInput = styled.input`
 `;
 
 export const SearchButton = styled.button`
-  position: absolute;
-  right: 5px;
-  top: 50%;
-  transform: translateY(-50%);
   background-color: ${({ theme }) => theme.colors.primary};
   color: ${({ theme }) => theme.colors.text.light};
-  padding: ${({ theme }) => `${theme.spacing.sm} ${theme.spacing.md}`};
-  border-radius: ${({ theme }) => theme.borderRadius.full};
+  padding: ${({ theme }) => `${theme.spacing.md} ${theme.spacing.lg}`};
+  border-radius: ${({ theme }) => theme.borderRadius.md};
   font-weight: 500;
+  font-size: 1rem;
   transition: background-color 0.2s;
+  white-space: nowrap;
 
   &:hover {
     background-color: ${({ theme }) => theme.colors.primaryDark};
   }
 `;
 
-export const SearchIcon = styled.span`
+export const ClearButton = styled.button`
+  position: absolute;
+  right: 120px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: ${({ theme }) => theme.colors.text.muted};
   font-size: 1.2rem;
+  cursor: pointer;
+  padding: ${({ theme }) => theme.spacing.xs};
+
+  &:hover {
+    color: ${({ theme }) => theme.colors.text.secondary};
+  }
 `;
