@@ -2,12 +2,11 @@ import React from 'react';
 import * as S from './CharacterDetail.styles';
 
 export interface CharacterDetailProps {
-  id: number;
   name: string;
-  status: string;
   species: string;
-  type: string;
+  status: string;
   gender: string;
+  type: string;
   image: string;
   origin: {
     name: string;
@@ -21,7 +20,7 @@ export interface CharacterDetailProps {
     dimension: string;
     residents_count: number;
   } | null;
-  last_episode: {
+  last_episode?: {
     name: string;
     episode: string;
     air_date: string;
@@ -31,18 +30,18 @@ export interface CharacterDetailProps {
 
 const CharacterDetail: React.FC<CharacterDetailProps> = ({
   name,
-  status,
   species,
-  type,
+  status,
   gender,
+  type,
   image,
   origin,
   current_location,
   last_episode,
   onClose
 }) => {
-  // Monta o texto ABOUT
-  const about = `${name} is a ${gender.toLowerCase()} ${species}. ${type ? `Type: ${type}. ` : ''}He is ${status.toLowerCase()} and well. Last seen in ${last_episode?.air_date || 'Unknown'}.`;
+  // Formata o texto ABOUT
+  const aboutText = `${name} is a ${gender.toLowerCase()} ${species}. He is ${status.toLowerCase()} and well. Last seen in ${last_episode?.air_date || 'Unknown'}.`;
 
   // Fecha ao clicar no overlay
   const handleOverlayClick = (e: React.MouseEvent) => {
@@ -54,63 +53,116 @@ const CharacterDetail: React.FC<CharacterDetailProps> = ({
   return (
     <S.Overlay onClick={handleOverlayClick}>
       <S.Modal>
-        <S.CloseButton onClick={onClose}>×</S.CloseButton>
+        <S.CloseButton onClick={onClose}>✕</S.CloseButton>
         
-        <S.Content>
-          <S.Header>
-            <S.Image src={image} alt={name} />
-            <S.Info>
-              <S.Name>{name}</S.Name>
-              <S.Status $status={status}>{status}</S.Status>
-              <S.BasicInfo>
-                <div><strong>Species:</strong> {species}</div>
-                {type && <div><strong>Type:</strong> {type}</div>}
-                <div><strong>Gender:</strong> {gender}</div>
-              </S.BasicInfo>
-            </S.Info>
-          </S.Header>
+        {/* ===== LAYOUT DESKTOP ===== */}
+        <S.DesktopLayout>
+          {/* Lado esquerdo - Informações */}
+          <S.InfoSection>
+            <S.Name>{name}</S.Name>
+            <S.Species>{species}</S.Species>
 
-          <S.Section>
-            <S.SectionTitle>ABOUT</S.SectionTitle>
-            <S.About>{about}</S.About>
-          </S.Section>
+            <S.Section>
+              <S.SectionTitle>ABOUT</S.SectionTitle>
+              <S.AboutText>{aboutText}</S.AboutText>
+            </S.Section>
 
-          <S.Section>
-            <S.SectionTitle>LOCATIONS</S.SectionTitle>
             <S.LocationsGrid>
+              {/* Origin */}
               {origin && (
                 <S.LocationCard>
-                  <S.LocationType>ORIGIN</S.LocationType>
-                  <S.LocationType>{origin.type}</S.LocationType>
-                  <S.LocationName>{origin.name}</S.LocationName>
-                  <S.LocationDimension>{origin.dimension}</S.LocationDimension>
-                  <S.ResidentsCount>{origin.residents_count} residents</S.ResidentsCount>
+                  <S.SectionTitle>ORIGIN</S.SectionTitle>
+                  <S.LocationInfo>
+                    <S.LocationType>{origin.type}</S.LocationType>
+                    <S.LocationName>{origin.name}</S.LocationName>
+                    <S.LocationDimension>{origin.dimension}</S.LocationDimension>
+                    <S.ResidentsCount>
+                      <S.PlanetSymbol>⊙</S.PlanetSymbol>
+                      <span>{origin.residents_count} residents</span>
+                    </S.ResidentsCount>
+                  </S.LocationInfo>
                 </S.LocationCard>
               )}
-              
+
+              {/* Current Location */}
               {current_location && (
                 <S.LocationCard>
-                  <S.LocationType>LOCATION</S.LocationType>
-                  <S.LocationType>{current_location.type}</S.LocationType>
-                  <S.LocationName>{current_location.name}</S.LocationName>
-                  <S.LocationDimension>{current_location.dimension}</S.LocationDimension>
-                  <S.ResidentsCount>{current_location.residents_count} residents</S.ResidentsCount>
+                  <S.SectionTitle>LOCATION</S.SectionTitle>
+                  <S.LocationInfo>
+                    <S.LocationType>{current_location.type}</S.LocationType>
+                    <S.LocationName>{current_location.name}</S.LocationName>
+                    <S.LocationDimension>{current_location.dimension}</S.LocationDimension>
+                    <S.ResidentsCount>
+                      <S.PlanetSymbol>⊙</S.PlanetSymbol>
+                      <span>{current_location.residents_count} residents</span>
+                    </S.ResidentsCount>
+                  </S.LocationInfo>
                 </S.LocationCard>
               )}
             </S.LocationsGrid>
-          </S.Section>
+          </S.InfoSection>
 
-          {last_episode && (
+          {/* Lado direito - Imagem com efeito 3D */}
+          <S.ImageSection>
+            <S.CharacterImage src={image} alt={name} />
+          </S.ImageSection>
+        </S.DesktopLayout>
+
+        {/* ===== LAYOUT MOBILE ===== */}
+        <S.MobileLayout>
+          <S.MobileImageContainer>
+            <S.MobileImage src={image} alt={name} />
+          </S.MobileImageContainer>
+          
+          <S.MobileContent>
+            <S.Name>{name}</S.Name>
+            <S.Species>{species}</S.Species>
+
             <S.Section>
-              <S.SectionTitle>LAST EPISODE</S.SectionTitle>
-              <S.LastEpisode>
-                <S.EpisodeName>{last_episode.name}</S.EpisodeName>
-                <S.EpisodeCode>{last_episode.episode}</S.EpisodeCode>
-                <S.EpisodeDate>{last_episode.air_date}</S.EpisodeDate>
-              </S.LastEpisode>
+              <S.SectionTitle>ABOUT</S.SectionTitle>
+              <S.AboutText>{aboutText}</S.AboutText>
             </S.Section>
-          )}
-        </S.Content>
+
+            <S.LocationsGrid>
+              {/* Origin - Mobile */}
+              {origin && (
+                <S.LocationCard>
+                  <S.SectionTitle>ORIGIN</S.SectionTitle>
+                  <S.LocationInfo>
+                    <S.LocationType>{origin.type}</S.LocationType>
+                    <S.LocationName>{origin.name}</S.LocationName>
+                    <S.LocationDimension>{origin.dimension}</S.LocationDimension>
+                    <S.ResidentsCount>
+                      <S.PlanetSymbol>⊙</S.PlanetSymbol>
+                      <span>{origin.residents_count} residents</span>
+                    </S.ResidentsCount>
+                  </S.LocationInfo>
+                </S.LocationCard>
+              )}
+
+              {/* Current Location - Mobile */}
+              {current_location && (
+                <S.LocationCard>
+                  <S.SectionTitle>LOCATION</S.SectionTitle>
+                  <S.LocationInfo>
+                    <S.LocationType>{current_location.type}</S.LocationType>
+                    <S.LocationName>{current_location.name}</S.LocationName>
+                    <S.LocationDimension>{current_location.dimension}</S.LocationDimension>
+                    <S.ResidentsCount>
+                      <S.PlanetSymbol>⊙</S.PlanetSymbol>
+                      <span>{current_location.residents_count} residents</span>
+                    </S.ResidentsCount>
+                  </S.LocationInfo>
+                </S.LocationCard>
+              )}
+            </S.LocationsGrid>
+
+            <S.MobileFooter>
+              <S.MobileName>{name}</S.MobileName>
+              <S.MobileSpecies>{species}</S.MobileSpecies>
+            </S.MobileFooter>
+          </S.MobileContent>
+        </S.MobileLayout>
       </S.Modal>
     </S.Overlay>
   );
