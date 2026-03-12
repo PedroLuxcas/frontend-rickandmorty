@@ -117,7 +117,6 @@ export const Species = styled.p<{ $isSelected?: boolean }>`
   }
 `;
 
-/* Overlay de seleção (opcional) */
 export const SelectedOverlay = styled.div`
   position: absolute;
   top: 0;

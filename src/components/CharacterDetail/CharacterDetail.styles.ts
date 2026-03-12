@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 // ============================================
-// OVERLAY E MODAL
+// OVERLAY AND MODAL
 // ============================================
 
 export const Overlay = styled.div`
@@ -71,7 +71,7 @@ export const CloseButton = styled.button`
 `;
 
 // ============================================
-// LAYOUT PRINCIPAL - Desktop (imagem à direita)
+// LAYOUT PRINCIPAL - Desktop (image the right)
 // ============================================
 
 export const DesktopLayout = styled.div`
@@ -142,7 +142,7 @@ export const CharacterImage = styled.img`
 `;
 
 // ============================================
-// LAYOUT MOBILE (imagem em cima, info embaixo)
+// LAYOUT MOBILE (image on top, info below)
 // ============================================
 
 export const MobileLayout = styled.div`
@@ -189,7 +189,7 @@ export const MobileContent = styled.div`
 `;
 
 // ============================================
-// INFORMAÇÕES DO PERSONAGEM
+// CHARACTER INFORMATION
 // ============================================
 
 export const Name = styled.h1`
@@ -286,7 +286,7 @@ export const PlanetSymbol = styled.span`
 `;
 
 // ============================================
-// GRID DE LOCALIZAÇÕES (Desktop)
+// GRID OF LOCATIONS (Desktop)
 // ============================================
 
 export const LocationsGrid = styled.div`

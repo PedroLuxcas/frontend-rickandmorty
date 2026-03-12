@@ -40,10 +40,10 @@ const CharacterDetail: React.FC<CharacterDetailProps> = ({
   last_episode,
   onClose
 }) => {
-  // Formata o texto ABOUT
+  // format the text ABOUT
   const aboutText = `${name} is a ${gender.toLowerCase()} ${species}. He is ${status.toLowerCase()} and well. Last seen in ${last_episode?.air_date || 'Unknown'}.`;
 
-  // Fecha ao clicar no overlay
+  // closes when clicking on the overlay
   const handleOverlayClick = (e: React.MouseEvent) => {
     if (e.target === e.currentTarget) {
       onClose();
@@ -57,7 +57,7 @@ const CharacterDetail: React.FC<CharacterDetailProps> = ({
         
         {/* ===== LAYOUT DESKTOP ===== */}
         <S.DesktopLayout>
-          {/* Lado esquerdo - Informações */}
+          {/* left side - Informations */}
           <S.InfoSection>
             <S.Name>{name}</S.Name>
             <S.Species>{species}</S.Species>
@@ -102,7 +102,7 @@ const CharacterDetail: React.FC<CharacterDetailProps> = ({
             </S.LocationsGrid>
           </S.InfoSection>
 
-          {/* Lado direito - Imagem com efeito 3D */}
+          {/* Right side - Image with effect 3D */}
           <S.ImageSection>
             <S.CharacterImage src={image} alt={name} />
           </S.ImageSection>

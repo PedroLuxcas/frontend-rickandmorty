@@ -11,19 +11,19 @@ function App() {
       <GlobalStyles />
       <BrowserRouter>
         <Routes>
-          {/* Rota principal - Home com busca */}
+          {/* Main route - Home with search */}
           <Route path="/" element={<Home />} />
           
-          {/* Rota com parâmetro de busca (ex: /search?q=Rick) */}
+          {/* Rota with search parameter (e.g., /search?q=Rick) */}
           <Route path="/search" element={<Home />} />
           
-          {/* Rota com ID do personagem (ex: /character/1) */}
+          {/* Route with character ID (e.g., /character/1) */}
           <Route path="/character/:id" element={<Home />} />
           
-          {/* Rota com busca + página (ex: /search/Rick/page/2) */}
+          {/* Route with search + page (e.g., /search/Rick/page/2) */}
           <Route path="/search/:query/page/:page" element={<Home />} />
           
-          {/* Rota curinga - qualquer outra rota vai para Home */}
+          {/* Wildcard route - any other route goes to Home */}
           <Route path="*" element={<Home />} />
         </Routes>
       </BrowserRouter>

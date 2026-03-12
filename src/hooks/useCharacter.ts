@@ -3,7 +3,7 @@ import { characterService } from '@/services/characterService';
 import { Character } from '../types/character';
 
 interface UseCharacterReturn {
-  // Estados
+  // States
   characters: Character[];
   loading: boolean;
   error: string | null;
@@ -13,11 +13,11 @@ interface UseCharacterReturn {
   searchQuery: string;
   hasSearched: boolean;
   
-  // Estados do detalhe
+  // States for Detail
   selectedCharacter: Character | null;
   detailLoading: boolean;
   
-  // Funções
+  // Functions
   searchCharacters: (query: string, pageNum?: number) => Promise<void>;
   loadMore: (pageNum: number) => Promise<void>;
   loadCharacter: (id: number) => Promise<void>;
@@ -26,7 +26,7 @@ interface UseCharacterReturn {
 }
 
 export const useCharacter = (): UseCharacterReturn => {
-  // Estados da listagem
+  // States for listing
   const [characters, setCharacters] = useState<Character[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -36,12 +36,12 @@ export const useCharacter = (): UseCharacterReturn => {
   const [searchQuery, setSearchQuery] = useState('');
   const [hasSearched, setHasSearched] = useState(false);
   
-  // Estados do detalhe
+  // States for Detail
   const [selectedCharacter, setSelectedCharacter] = useState<Character | null>(null);
   const [detailLoading, setDetailLoading] = useState(false);
 
   /**
-   * Busca personagens por nome
+   * search for character when name
    */
   const searchCharacters = useCallback(async (query: string, pageNum: number = 1) => {
     if (!query.trim()) {
@@ -93,7 +93,7 @@ export const useCharacter = (): UseCharacterReturn => {
   }, []);
 
   /**
-   * Carrega mais personagens (mudança de página)
+   * Loading more characters (page break)
    */
   const loadMore = useCallback(async (pageNum: number) => {
     if (!searchQuery) return;
@@ -124,7 +124,7 @@ export const useCharacter = (): UseCharacterReturn => {
   }, [searchQuery]);
 
   /**
-   * Carrega detalhes de um personagem
+   * Loads character details
    */
   const loadCharacter = useCallback(async (id: number) => {
     setDetailLoading(true);
@@ -156,14 +156,14 @@ export const useCharacter = (): UseCharacterReturn => {
   }, []);
 
   /**
-   * Limpa o personagem selecionado
+   * Clear the selected character
    */
   const clearSelectedCharacter = useCallback(() => {
     setSelectedCharacter(null);
   }, []);
 
   /**
-   * Reseta a busca
+   * Reset the search
    */
   const resetSearch = useCallback(() => {
     setCharacters([]);
@@ -174,7 +174,7 @@ export const useCharacter = (): UseCharacterReturn => {
   }, []);
 
   return {
-    // Estados
+    // States
     characters,
     loading,
     error,
@@ -184,11 +184,11 @@ export const useCharacter = (): UseCharacterReturn => {
     searchQuery,
     hasSearched,
     
-    // Estados do detalhe
+    // Estados for detail
     selectedCharacter,
     detailLoading,
     
-    // Funções
+    // Function
     searchCharacters,
     loadMore,
     loadCharacter,

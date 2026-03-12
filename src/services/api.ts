@@ -7,10 +7,9 @@ const api = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
-  timeout: 10000, // 10 segundos
 });
 
-// Interceptor para logs de requisição
+// Interceptor for request logs
 api.interceptors.request.use(
   (config) => {
     console.log(`📡 ${config.method?.toUpperCase()} ${config.url}`);
@@ -22,7 +21,7 @@ api.interceptors.request.use(
   }
 );
 
-// Interceptor para logs de resposta
+// Interceptor for response logs
 api.interceptors.response.use(
   (response) => {
     console.log(`✅ ${response.status} ${response.config.url}`);
@@ -30,13 +29,13 @@ api.interceptors.response.use(
   },
   (error) => {
     if (error.response) {
-      // Erro com resposta do servidor
+      // Error with server response
       console.error(`❌ ${error.response.status} ${error.config.url}:`, error.response.data);
     } else if (error.request) {
-      // Erro de rede (servidor offline)
+      // Network error (server offline)
       console.error('❌ Network Error: Servidor não respondeu');
     } else {
-      // Outros erros
+      // Others error 
       console.error('❌ Error:', error.message);
     }
     return Promise.reject(error);

@@ -1,4 +1,4 @@
-// TIPOS PARA LOCALIZAÇÃO
+// TYPES FOR LOCATION
 
 export interface Location {
   id: number;
@@ -8,7 +8,7 @@ export interface Location {
   residents_count: number;
 }
 
-// TIPOS PARA EPISÓDIO
+// TYPES FOR EPISODES
 
 export interface Episode {
   id: number;
@@ -17,7 +17,7 @@ export interface Episode {
   episode: string;
 }
 
-// TIPO PRINCIPAL DO PERSONAGEM
+// MAIN TYPE OF THE CHARACTER
 
 export interface Character {
   id: number;
@@ -33,7 +33,7 @@ export interface Character {
   total_episodes: number;
 }
 
-// TIPOS PARA RESPOSTA DA API
+// TYPES FOR API RESPONSE
 
 export interface ApiResponse<T> {
   success: boolean;
@@ -51,7 +51,7 @@ export interface PaginatedResponse<T> {
   has_prev: boolean;
 }
 
-// TIPOS PARA PARÂMETROS
+// TYPES FOR PARAMETERS
 
 export interface SearchParams {
   name: string;

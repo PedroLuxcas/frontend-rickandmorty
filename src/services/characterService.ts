@@ -9,8 +9,8 @@ import {
 
 export const characterService = {
   /**
-   * Busca personagens com paginação
-   * @param params Parâmetros de paginação (page, per_page)
+   * Search characters with pagination
+   * @param params Parameters for pagination (page, per_page)
    */
   async getCharacters(params: PaginationParams = { page: 1, per_page: 20 }) {
     const { page, per_page = 20 } = params;
@@ -23,8 +23,8 @@ export const characterService = {
   },
 
   /**
-   * Busca personagens por nome
-   * @param params Parâmetros de busca (name, page, per_page)
+   * Search characters by name
+   * @param params Parameters for search (name, page, per_page)
    */
   async searchCharacters(params: SearchParams) {
     const { name, page = 1, per_page = 20 } = params;
@@ -37,8 +37,8 @@ export const characterService = {
   },
 
   /**
-   * Busca um personagem por ID
-   * @param id ID do personagem
+   * Search for a character by ID
+   * @param id Character ID
    */
   async getCharacterById(id: number) {
     const response = await api.get<ApiResponse<Character>>(`/characters/${id}`);
@@ -46,9 +46,9 @@ export const characterService = {
   },
 
   /**
-   * Busca personagens por status
-   * @param status Status do personagem (Alive, Dead, unknown)
-   * @param params Parâmetros de paginação
+   * Search characters by status
+   * @param status Character Status (Alive, Dead, unknown)
+   * @param params Pagination parameters
    */
   async getCharactersByStatus(status: string, params: PaginationParams = { page: 1 }) {
     const { page, per_page = 20 } = params;
@@ -61,9 +61,9 @@ export const characterService = {
   },
 
   /**
-   * Busca personagens por espécie
-   * @param species Espécie do personagem
-   * @param params Parâmetros de paginação
+   * Search characters by species
+   * @param species Character species
+   * @param params Pagination parameters
    */
   async getCharactersBySpecies(species: string, params: PaginationParams = { page: 1 }) {
     const { page, per_page = 20 } = params;
