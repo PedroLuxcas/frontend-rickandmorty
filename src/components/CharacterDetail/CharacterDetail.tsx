@@ -33,7 +33,6 @@ const CharacterDetail: React.FC<CharacterDetailProps> = ({
   species,
   status,
   gender,
-  type,
   image,
   origin,
   current_location,
