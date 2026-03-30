@@ -91,6 +91,7 @@ const Home: React.FC = () => {
                 </S.ResultsInfo>
 
                 <CharacterGrid
+                  key={`${searchInput}-${page}`}
                   characters={characters}
                   onCharacterClick={handleCharacterClick}
                   selectedCharacterId={selectedCharacter?.id}
